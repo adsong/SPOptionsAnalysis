@@ -1,0 +1,36 @@
+'''
+Created on Jan 29, 2020
+
+@author: Andrew
+'''
+
+from executeOptionsAnalysis import OptionsExecutor
+from optionsAnalysis import PO
+import datetime as dt
+
+if __name__=="__main__":
+    print("Start.")
+
+    try:
+        executor = OptionsExecutor()
+        machineLearningModel = PO()
+        
+        if(executor.hasPosition):
+            machineLearningModel.do_it_all(executor.daysRemaining, executor.targetDrop)
+        else:
+            if dt.datetime.today().weekday() >  4:
+                number = 15
+            else:
+                number = 15 - dt.datetime.today().weekday() - 1
+            
+            machineLearningModel.do_it_all(number, executor.targetDrop)
+    except Exception as e:
+        print("Exception thrown during instantiation of objects - {}".format(e))
+    else:
+        if(executor.isFirstRun):
+            executor.cleanReport()
+        
+        returnMessage = executor.execute(machineLearningModel)
+        executor.writeReport(returnMessage, machineLearningModel)
+    
+    print("Done.")

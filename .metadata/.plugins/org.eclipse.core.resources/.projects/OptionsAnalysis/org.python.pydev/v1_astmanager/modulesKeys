@@ -1,0 +1,7 @@
+MODULES_MANAGER_V2
+sp.__init__|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\__init__.py
+sp.api.FlaskProject|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\api\FlaskProject.py
+sp.api.__init__|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\api\__init__.py
+sp.executeOptionsAnalysis|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\executeOptionsAnalysis.py
+sp.main|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\main.py
+sp.optionsAnalysis|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\optionsAnalysis.py

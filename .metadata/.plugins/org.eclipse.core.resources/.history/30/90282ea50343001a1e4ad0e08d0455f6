@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jan 18 22:54:20 2020
+
+@author: Lee Sak Park
+"""
+
+from ai_modeling import AI
+import pandas as pd
+import numpy as np
+from option_analysis import PO
+
+def gen_prediction(trading_days = 10, rate = 20):
+    x = AI()
+    x.data_prep(trading_days, rate)
+    result = []
+    for r in range(15, 25):
+        x.run_ai(r)
+        result.append(x.y_pred.round(2))
+    result = np.array(result)
+    return(result.mean())
+
+def gen_prediction_table(start = 0, end = 20, td = 10):
+    rg = range(end-start+1)
+    df = pd.DataFrame({"rates": range(start, end+1)})
+    df['prediction'] = np.nan
+    for r in rg:
+        df['prediction'][r] = gen_prediction(trading_days = td, rate = r)
+    return(df)
+
+
+def combine_prediction(trading_days = 10, rate = 20):
+
+    ai_result = gen_prediction(trading_days, rate)
+    y = PO()
+    dic = y.prediction
+    dic['ai'] = ai_result
+    return(dic)
+    
+    
+def combine_prediction_table(s = 0, e = 20, trading_days = 10):
+    df = gen_prediction_table(s, e, td  = trading_days)
+    x = PO()
+    x.prediction_with_variables(s, e, td = trading_days)
+    df2 = x.predictions
+    
+    return(pd.concat([df, df2], axis = 1))
+
+
+if __name__ == "__main__":
+    print(combine_prediction())

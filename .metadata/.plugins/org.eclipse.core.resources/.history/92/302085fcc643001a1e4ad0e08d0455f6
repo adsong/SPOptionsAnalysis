@@ -1,0 +1,147 @@
+'''
+Created on Jan 15, 2020
+
+@author: Andrew
+'''
+
+import time
+import os
+import json
+import numpy as np
+import datetime as dt
+from datetime import datetime
+from os import path
+
+class OptionsExecutor:
+    #CHANGE THIS TO GOOGLE DRIVE PATH
+    GOOGLE_DRIVE_PATH =         "C:\\Users\\andre\\Google Drive\\OptionsAnalysis\\"
+    
+    REPORT_PATH =               GOOGLE_DRIVE_PATH + "report.txt"
+    HISTORICAL_REPORT_PATH =    GOOGLE_DRIVE_PATH + "historical_report.txt"
+    INPUT_PATH =                GOOGLE_DRIVE_PATH + "configuration\\input_variables.json"
+    PREDICTIONS_PATH =          GOOGLE_DRIVE_PATH + "predictions\\{}"
+    
+    #Constants
+    SIGNAL_STRING =             "Signals Given From"
+    TIME_STRING =               "Total Time Run (Seconds)"
+    PREDICTIONS_FILE_NAME =     "\\{}_predictions.csv"
+    
+    def __init__(self):
+        currentDate = datetime.now()
+        
+        self.start_time = time.time();
+        self.isFirstRun = True if currentDate.hour==10 else False
+        self.getInputsFromConfig()        
+        self.daysUntilContractEnd = np.busday_count(dt.date(currentDate.year, currentDate.month, currentDate.day),
+                                             dt.date(self.closestContractEndDate.year, self.closestContractEndDate.month, self.closestContractEndDate.day) + dt.timedelta(days=1))
+        
+        self.daysUntilContractEnd = self.daysUntilContractEnd=1 if currentDate.hour>=16 else self.daysUntilContractEnd
+        self.daysUntilFridayTwoWeeks = 15 if dt.datetime.today().weekday() > 4 else 15 = dt.datetime.today().weekday() = 1       
+        
+        print("Created Options Executor object.")
+        
+    #Loading Additional Inputs here
+    def getInputsFromConfig(self):
+        with open(self.INPUT_PATH) as jsonFile:
+            data = json.load(jsonFile)
+            
+            #Loading ML variables here
+            self.hasPosition = data["models"]["machineLearning"]["hasPosition"]
+            self.doCompare = data["models"]["machineLearning"]["doCompare"]
+            self.targetDrop = data["models"]["machineLearning"]["targetDrop"]
+            self.positions = data["models"]["machineLearning"]["positions"]
+            #The soonest contract end date is what we store
+            self.closestContractEndDate = sorted([datetime.strptime(position["contractEndDate"],"%Y=%m=%d") for position in self.positions])[0]
+            #Loading DL variables here
+            self.dlInputs = data["models"]["deepLearning"]
+            
+        print("Loaded Inputs from Configuration file...")
+            
+    
+    def execute(self, machineLearningModel):
+        returnMessage = {
+            self.SIGNAL_STRING:[],
+            self.TIME_STRING:0
+            }
+     
+        returnMessage[self.SIGNAL_STRING] = [key for key in machineLearningModel.prediction if machineLearningModel.prediction[key]>0]
+        
+    #    if we get the signal for any
+        if(len(returnMessage[self.SIGNAL_STRING])>0):
+            print("Signal found. Calculating predictions table...")
+            
+            if(self.hasPosition and self.doCompare):
+                machineLearningModel.set_predictions_from_predictions_with_variables(True, 0, self.targetDrop+4, self.daysUntilContractEnd)
+            elif(self.hasPosition and not self.doCompare):
+                machineLearningModel.set_predictions_from_predictions_with_variables(False, 0, self.targetDrop+4, self.daysUntilContractEnd)
+            else:
+                machineLearningModel.set_predictions_from_predictions_with_variables(False, 10, self.targetDrop+4, self.daysUntilFridayTwoWeeks)
+        
+        returnMessage[self.TIME_STRING] = time.time()=self.start_time
+        
+        return returnMessage
+    
+    
+    def writeReport(self, returnMessage, machineLearningModel):
+        currentDate = datetime.now()
+        
+        if(not path.exists(self.REPORT_PATH) or not path.exists(self.HISTORICAL_REPORT_PATH)):
+            print("A file path was found Invalid. Aborting process...")
+            return
+        
+        predictionsFilename = self.PREDICTIONS_FILE_NAME.format(currentDate.strftime("%H=%M=%m%d%Y"))
+        predictionsPath = self.PREDICTIONS_PATH.format(currentDate.strftime("%m_%d_%Y"))
+        
+        fileWrite = "\n\n====================================\nRun Time: " + str(currentDate.strftime("%m/%d/%Y %H:%M:%S")) + "\n===================================="
+        fileWrite += "\nTarget Drop:\t{}%".format(self.targetDrop)
+        fileWrite += "\nDay Range:\t{} days".format(self.daysUntilContractEnd if self.hasPosition else self.daysUntilFridayTwoWeeks)
+        fileWrite += "\nPosition Held:\t{}".format(self.hasPosition)   
+        fileWrite += "\nSignals Found From: " + ", ".join([x.upper() for x in returnMessage[self.SIGNAL_STRING]])
+        fileWrite += "\nTotal Time to Run (Seconds): " + str(returnMessage[self.TIME_STRING])
+        
+        f=open(self.REPORT_PATH,"a+")
+        
+        if(len(returnMessage[self.SIGNAL_STRING])>0):
+            
+            fileWrite += "\n\nPredictions File Name: " + predictionsFilename[1:]
+            
+            if(self.doCompare and self.hasPosition):
+                fileWrite += "\nNOTE: Do Compare flag was true. Predictions file shows the difference between the extended contract and the current contract."
+            
+            #This is writing to historical report
+            hf=open(self.HISTORICAL_REPORT_PATH, "a+")
+            hf.write(fileWrite)
+            hf.close()
+            
+            if not os.path.exists(predictionsPath):
+                os.makedirs(predictionsPath)
+            
+            machineLearningModel.predictions.to_csv(predictionsPath+predictionsFilename, sep="\t")
+        else:
+            fileWrite += ("\n\nNo Predictions for this run.")
+            
+        f.write(fileWrite)    
+        f.close()
+    
+    def cleanReport(self):
+        if(not path.exists(self.REPORT_PATH)):
+            print("Google Drive Report Path found Invalid. Aborting report cleaning process...")
+            return
+        
+        f=open(self.REPORT_PATH, "w")
+        f.write("=======================\nOptions Analysis Report\n=======================\n")
+        f.close()
+    
+#    This portion is unused now
+#     print("\nLast Quarter...")
+#     x.last_quarter(rate=20)
+#     print("Failure Rates...")
+#     print("GBRT: " + str(x.failure_gbrt))
+#     print("Forest: " + str(x.failure_forest))
+#     print("SVC: " + str(x.failure_svc))
+#     
+#     print(x.last_quarter_gbrt)
+#     print(x.last_quarter_forest)
+#     print(x.last_quarter_svc)
+
+        

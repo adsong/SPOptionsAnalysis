@@ -1,0 +1,31 @@
+'''
+Created on Jan 29, 2020
+
+@author: Andrew
+'''
+
+from executeOptionsAnalysis import OptionsExecutor
+from optionsAnalysis import PO
+
+if __name__=="__main__":
+    print("Start.")
+
+    try:
+        executor = OptionsExecutor()
+        machineLearningModel = PO()
+        
+        if(executor.hasPosition):
+            machineLearningModel.do_it_all(executor.daysRemaining, executor.targetDrop)
+        else:
+            
+            machineLearningModel.do_it_all(10, 15)
+    except:
+        print("Exception thrown during instantiation of objects. Skipping process.")
+    else:
+        if(executor.isFirstRun):
+            executor.cleanReport()
+        
+        returnMessage = executor.execute(machineLearningModel)
+        executor.writeReport(returnMessage, machineLearningModel)
+    
+    print("Done.")

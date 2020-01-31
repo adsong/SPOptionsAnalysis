@@ -1,0 +1,100 @@
+-- VERSION_5
+-- START DISKCACHE_2
+D:\eclipse_python_workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\OptionsAnalysis\com.python.pydev.analysis\v2_indexcache
+sp.__init__|1580434906033469000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\__init__.py
+sp.api.FlaskProject|1579049678116000000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\api\FlaskProject.py
+sp.api.__init__|1580434934566842000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\api\__init__.py
+sp.main|1580435081724562000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\main.py
+sp.optionsAnalysis|1580435098616663000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\optionsAnalysis.py
+sp.executeOptionsAnalysis|1580435102616652000|D:\eclipse_python_workspace\OptionsAnalysis\src\sp\executeOptionsAnalysis.py
+-- END DISKCACHE
+-- START DICTIONARY
+25
+23=PO.get_uvxy
+9=PO.__init__
+1=D:\eclipse_python_workspace\OptionsAnalysis\src\sp\optionsAnalysis.py
+16=OptionsExecutor.__init__
+21=PO.set_predictions_from_predictions_with_variables
+10=PO.data_for_analysis
+17=PO.last_quarter
+20=PO.final_prediction
+7=D:\eclipse_python_workspace\OptionsAnalysis\src\sp\executeOptionsAnalysis.py
+15=OptionsExecutor.getInputsFromConfig
+12=OptionsExecutor
+3=D:\eclipse_python_workspace\OptionsAnalysis\src\sp\api\FlaskProject.py
+5=D:\eclipse_python_workspace\OptionsAnalysis\src\sp\main.py
+25=PO.get_vix_spot
+6=sp.main
+18=PO.get_clean_data
+24=PO.get_vix_3m
+14=PO.accuracy_analysis
+13=PO.analysis
+19=PO.transform
+4=sp.api.FlaskProject
+22=PO.get_scores
+2=sp.optionsAnalysis
+8=sp.executeOptionsAnalysis
+11=PO
+-- END DICTIONARY
+-- START TREE 1
+9
+PO|1|PO!1^19#7*17@
+app|1|app!3^22#1*35@
+exe|1|executor!5^14#9*51@
+get|2|getOneResult!3^35#5*34@getAllResults!3^31#5*34@
+hom|1|home!3^27#5*34@
+mac|1|machineLearningModel!5^15#9*51@
+opt|1|OptionsExecutor!7^15#7*65@
+res|1|results!3^19#1*35@
+ret|1|returnMessage!5^27#9*51@
+-- END TREE
+-- START TREE 2
+47
+X|2|X!9&1^36#9*19@X!10&1^277#9*19@
+__i|2|__init__!11&1^24#9*18@__init__!12&7^29#9*66@
+acc|5|accuracy!9&1^53#9*19@accuracy!13&1^335#9*19@accuracy_analysis!11&1^389#9*18@accuracies!9&1^64#9*19@accuracies!14&1^404#9*19@
+act|1|actual_diff!10&1^267#9*19@
+ana|1|analysis!11&1^288#9*18@
+cle|1|cleanReport!12&7^130#9*66@
+clo|1|closestContractEndDate!15&7^54#13*67@
+com|4|combined_pred!9&1^55#9*19@combined_pred!13&1^346#9*19@combined_raw!9&1^54#9*19@combined_raw!13&1^345#9*19@
+dat|1|data_for_analysis!11&1^262#9*18@
+day|2|daysUntilContractEnd!16&7^36#9*67@daysUntilFridayTwoWeeks!16&7^39#9*67@
+dli|1|dlInputs!15&7^56#13*67@
+do_|1|do_it_all!11&1^86#9*18@
+doc|1|doCompare!15&7^50#13*67@
+exe|1|execute!12&7^61#9*66@
+fai|12|failure_forest_specific!9&1^78#9*19@failure_forest_specific!17&1^484#9*19@failure_svc!9&1^76#9*19@failure_svc!17&1^481#9*19@failure_forest!9&1^75#9*19@failure_forest!17&1^480#9*19@failure_gbrt_specific!9&1^77#9*19@failure_gbrt_specific!17&1^483#9*19@failure_gbrt!9&1^74#9*19@failure_gbrt!17&1^479#9*19@failure_svc_specific!9&1^79#9*19@failure_svc_specific!17&1^485#9*19@
+fin|1|final_prediction!11&1^372#9*18@
+for|6|forest_pred_raw!9&1^47#9*19@forest_pred_raw!13&1^318#9*19@forest_model!9&1^49#9*19@forest_model!13&1^321#9*19@forest_pred!9&1^48#9*19@forest_pred!13&1^319#9*19@
+gbr|6|gbrt_model!9&1^46#9*19@gbrt_model!13&1^309#9*19@gbrt_pred_raw!9&1^44#9*19@gbrt_pred_raw!13&1^306#9*19@gbrt_pred!9&1^45#9*19@gbrt_pred!13&1^307#9*19@
+get|6|get_uvxy!11&1^151#9*18@get_vix_3m!11&1^108#9*18@getInputsFromConfig!12&7^44#9*66@get_scores!11&1^350#9*18@get_vix_spot!11&1^95#9*18@get_clean_data!11&1^192#9*18@
+goo|1|GOOGLE_DRIVE_PATH!12&7^17#5*67@
+has|1|hasPosition!15&7^49#13*67@
+his|1|HISTORICAL_REPORT_PATH!12&7^20#5*67@
+inp|1|INPUT_PATH!12&7^21#5*67@
+isf|1|isFirstRun!16&7^33#9*67@
+las|10|last_quarter_forest!9&1^72#9*19@last_quarter_forest!17&1^470#9*19@last!9&1^30#9*19@last!18&1^223#9*19@last!19&1^260#9*19@last_quarter_gbrt!9&1^71#9*19@last_quarter_gbrt!17&1^469#9*19@last_quarter_svc!9&1^73#9*19@last_quarter_svc!17&1^471#9*19@last_quarter!11&1^457#9*18@
+max|2|max_trading_days!9&1^32#9*19@max_trading_days!18&1^238#9*19@
+plo|2|plotting_scores!11&1^414#9*18@plotting_accuracies!11&1^407#9*18@
+pos|1|positions!15&7^52#13*67@
+pre|7|PREDICTIONS_PATH!12&7^22#5*67@prediction!9&1^61#9*19@prediction!20&1^375#9*19@predictions!9&1^68#9*19@predictions!21&1^425#13*19@prediction_with_variables!11&1^433#9*18@PREDICTIONS_FILE_NAME!12&7^27#5*67@
+pri|1|print_results!11&1^380#9*18@
+rep|1|REPORT_PATH!12&7^19#5*67@
+res|2|results!9&1^58#9*19@results!22&1^370#9*19@
+sco|2|scores!9&1^65#9*19@scores!14&1^405#9*19@
+set|1|set_predictions_from_predictions_with_variables!11&1^423#9*18@
+sig|1|SIGNAL_STRING!12&7^25#5*67@
+sta|1|start_time!16&7^32#9*67@
+svc|6|svc_pred_raw!9&1^50#9*19@svc_model!9&1^52#9*19@svc_pred_raw!13&1^328#9*19@svc_model!13&1^331#9*19@svc_pred!9&1^51#9*19@svc_pred!13&1^329#9*19@
+tar|1|targetDrop!15&7^51#13*67@
+thr|2|threshold!9&1^33#9*19@threshold!18&1^239#9*19@
+tim|1|TIME_STRING!12&7^26#5*67@
+tra|1|transform!11&1^242#9*18@
+uvx|2|uvxy!9&1^27#9*19@uvxy!23&1^190#9*19@
+vix|7|vix_3m!9&1^26#9*19@vix_3m!24&1^148#13*19@vix!9&1^31#9*19@vix!18&1^237#9*19@vix!19&1^252#9*19@vix_spot!9&1^25#9*19@vix_spot!25&1^106#9*19@
+wri|1|writeReport!12&7^85#9*66@
+x_t|4|X_train!9&1^38#9*19@X_train!10&1^281#9*19@X_test!9&1^39#9*19@X_test!10&1^282#9*19@
+y|2|y!9&1^37#9*19@y!10&1^278#9*19@
+y_t|4|y_test!9&1^41#9*19@y_test!10&1^284#9*19@y_train!9&1^40#9*19@y_train!10&1^283#9*19@
+-- END TREE
